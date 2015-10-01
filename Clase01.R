@@ -1,3 +1,5 @@
+## Script - Clase 01
+
 install.packages('dplyr', dependencies = TRUE)
 install.packages(c('data.table','ggplot2'), dependencies = TRUE)
 
