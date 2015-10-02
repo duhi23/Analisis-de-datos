@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <title>Introducción a R</title>
+    <title>Exploración y visualización de datos</title>
 
     <link rel="stylesheet" href="stylesheets/styles.css">
     <link rel="stylesheet" href="stylesheets/github-light.css">
@@ -15,8 +15,8 @@
   <body>
     <div class="wrapper">
       <header>
-        <h1>Introducción a R</h1>
-        <h1><img class="logo" src="https://www.r-project.org/Rlogo.png" alt=""></h1>
+        <h1>Datos</h1>
+        <h1><img class="logo" src="http://www.adgilus.com/assets/Data.Manipulation-c2e04f325a8f3b2dce86c6c5bd20ff33.jpg" alt=""></h1>
         <p>Curso: Análisis y tratamiento de datos con R</p>
 
         <p class="view"><a href="https://github.com/duhi23/Analisis-de-datos">Repositorio del curso en GitHub <small>duhi23/Analisis-de-datos</small></a></p>
@@ -30,19 +30,36 @@
       </header>
       <section>
         <h3>
-<a id="intro" class="anchor" href="#intro" aria-hidden="true"><span class="octicon octicon-link"></span></a>Lenguaje de Programación R</h3>
+<a id="package" class="anchor" href="#package" aria-hidden="true"><span class="octicon octicon-link"></span></a>Paquetes requeridos</h3>
 
-<p>R es un lenguaje de programación interpretado, de distribución libre bajo Licencia GNU General Public License, y se encuentra disponible para las plataformas: Linux, Windows, Unix y Mac OS X desde el repositorio <a href="https://www.r-project.org">R-Project</a>.</p>
+<p>Los paquetes o también llamadas bibliotecas permiten ampliar las capacidades del programa R, para el curso requerimos los siguientes paquetes:</p>
+<ul>
+      <li>dplyr</li>
+      <li>data.table</li>
+      <li>sqldf</li>
+      <li>readr</li>
+      <li>readxl</li>
+      <li>ggvis</li>
+      <li>ggplot2</li>
+      <li>rmarkdown</li>
+      <li>magrittr</li>
+      <li>knitr</li>
+</ul>
 
 <h3>
-<a id="historia" class="anchor" href="#historia" aria-hidden="true"><span class="octicon octicon-link"></span></a>Historia</h3>
+<a id="data" class="anchor" href="#data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Manipulación de datos</h3>
 
-<p>R se inició en 1991 como un experimento para evaluar posibles construcciones de entornos estadísticos, su desarrollo fue bastante bueno lo cual significó tener las primeras copias binarias en Agosto de 1993. Dos años más tarde, Martin Machler animó a sus amigos Ross Ihaka y Robert Gentleman a liberar el código fuente de manera que R se distribuya bajo licencia GNU.</p>
+<p>R cuenta con una amplia gama de librerías para el manejo de bases de datos, en el curso revisaremos tres de las librerías más utilizadas y modernas <code>sqldf</code>, <code>dplyr</code> y <code>data.table</code>.</p>
 
-<p>En 1997 se conformó el <code>R Core Team</code>, un grupo de desarrolladores experimentados con permisos para manipular el código fuente. Finalmente, en el año 2000 los creadores consideran que el programa había alcanzado una alta estabilidad y lanzan la versión 1.0.0.</p>
+<p>Estas librerías permiten seleccionar columnas, añadir columnas, filtrar filas, ordenar la información en base a algún criterio y obtener estadísticos de resumen de modo sencillo y un código limpio.</p>
+
+<ul>
+      <li><a href="poblacion.xlsx">Población</a></li>
+      <li><a href="base_salud.xls">Salud</a></li>
+</ul>
 
 <h3>
-<a id="ventajas" class="anchor" href="#ventajas" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ventajas</h3>
+<a id="visualizacion" class="anchor" href="#visualizacion" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visualización</h3>
 
 <ul>
       <li>El costo es mínimo al tratarse de un software libre.</li>
