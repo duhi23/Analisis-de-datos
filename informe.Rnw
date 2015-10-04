@@ -1,0 +1,44 @@
+\documentclass[12pt, oneside, a4paper]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage{float}
+\usepackage{array}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+
+\title{Primer informe}
+\author{Diego Huaraca}
+\date{\today}
+
+\begin{document}
+\maketitle
+
+El presente informe analiza las bases de población y salud.\newline
+<<warning=FALSE, echo=TRUE, error=FALSE>>=
+library(readxl)
+poblacion <- read_excel("poblacion.xlsx", sheet = 1)
+salud <- read_excel("base_salud.xls", sheet = 1)
+@
+
+\begin{itemize}
+      \item La base de población tiene \Sexpr{dim(poblacion)[1]} registros y \Sexpr{dim(poblacion)[2]} variables.
+\end{itemize}
+
+<<echo=TRUE, warning=FALSE, results='asis'>>=
+suppressMessages(library(sqldf))
+suppressMessages(library(xtable))
+xtable(sqldf("SELECT PROVINCIA, COUNT(CANTON) AS NCANTONES, SUM(POBLACION) AS HABITANTES
+      FROM poblacion
+      GROUP BY PROVINCIA
+      ORDER BY HABITANTES DESC"), digits=0, align=c("c","l","c","c"), caption=c("Provincias"))
+@
+
+<<echo=FALSE>>=
+data <- sqldf("SELECT PROVINCIA, SUM(POBLACION) AS HABITANTES
+      FROM poblacion
+      GROUP BY PROVINCIA")
+@
+
+
+
+
+\end{document}
