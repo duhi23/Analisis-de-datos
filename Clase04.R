@@ -29,13 +29,8 @@ load("DataCruce.RData")
 head(data)
 
 library(dplyr)
-data <- tbl_df(data)
-data <- data %>% mutate(id=ifelse(nchar(identificacion)==9, 
+RC$data <- tbl_df(RC$data)
+RC$data <- RC$data %>% mutate(id=ifelse(nchar(identificacion)==9, 
                           paste("0", identificacion, sep=""), 
                           as.character(identificacion)))
 
-
-registro <- function(cedula){
-      reg <- data %>% filter(id==cedula) 
-      return(reg)      
-}
