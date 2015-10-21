@@ -1,31 +1,41 @@
-###################################################
-##### Clase 04 - Imputación de datos perdidos #####
-###################################################
+#################################################
+##### Clase 04 - Validación de la identidad #####
+#################################################
 
-install.packages('mice', dependencies = TRUE)
+verificador <- function(cedula){
+      if(nchar(cedula)==10){
+            index <- c(2,1,2,1,2,1,2,1,2)
+            val <- numeric(10)
+            for(i in 1:10){
+                  val[i] <- as.numeric(substring(cedula,i,i))
+            }
+            produ <- index*val[1:9]
+            produ[which(produ >=10)] <- produ[produ>=10]-9
+            if((sum(produ) + val[10])%%10 == 0){
+                  msg <- paste("La cédula ", cedula, "SI es correcta")
+            } else {
+                  msg <- paste("La cédula ", cedula, " NO es correcta")
+            }
+            return(msg)
+      } else {
+            print("La identificación no es correcta")
+      }
+      
+}
 
-# Problema de los datos perdidos
+verificador("060401439")
 
-y <- c(1, 2, 4)
-mean(y)
+load("DataCruce.RData")
+head(data)
 
-y <- c(1, 2, NA)
-mean(y)
-
-mean(y, na.rm = TRUE)
-
-lm(Ozone ~ Wind, data = airquality)
-
-fit <- lm(Ozone ~ Wind, data = airquality, na.action = na.omit)
-coef(fit)
-
-# Por default retira los valores NA
-options(na.action = na.omit)
-
-delete <- na.action(fit)
-naprint(delete)
-
-# Imputacion por media
+library(dplyr)
+data <- tbl_df(data)
+data <- data %>% mutate(id=ifelse(nchar(identificacion)==9, 
+                          paste("0", identificacion, sep=""), 
+                          as.character(identificacion)))
 
 
-
+registro <- function(cedula){
+      reg <- data %>% filter(id==cedula) 
+      return(reg)      
+}
