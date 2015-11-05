@@ -2,8 +2,27 @@
 ##### Estimación Bootstrap  #####
 #################################
 
+# Almacenamos el ambiente
+ls(RC)
+save(list = ls(all.names = TRUE), file = "ATDR.RData")
+
+# Cargamos el ambiente
+load("ATDR.RData")
+
 # Calculamos la edad en RC
 library(dplyr)
+library(ggvis)
+RC$data <- RC$data %>% mutate(EDAD=trunc(as.numeric(difftime(as.Date(Sys.time()), 
+                                                  as.Date(as.character(fecha_nacimiento)), 
+                                                  units="days"))/365))
+
+# Distribucion variable EDAD
+RC$data %>% ggvis(x = ~EDAD) %>% layer_histograms(width = 10)
+RC$data %>% mutate(EDAD_REAL=EDAD-4) %>% select(EDAD_REAL) %>% 
+      quantile(probs=seq(0.1, 0.9, by=0.1), na.rm=TRUE)
+
+
+
 RC$edad <- function(cedula){
       library(dplyr)
       fna <- as.Date(as.character(RC$data %>% filter(id==cedula) 
