@@ -2,63 +2,30 @@
 ##### Estimación Bootstrap  #####
 #################################
 
-# Almacenamos el ambiente
-ls(RC)
-save(list = ls(all.names = TRUE), file = "ATDR.RData")
+library(haven)
+datos <- read_sav("bootstrap.sav")
+dim(datos)
 
-# Cargamos el ambiente
-load("ATDR.RData")
+mean(datos$EDAD)
 
-# Calculamos la edad en RC
-library(dplyr)
-library(ggvis)
-RC$data <- RC$data %>% mutate(EDAD=trunc(as.numeric(difftime(as.Date(Sys.time()), 
-                                                  as.Date(as.character(fecha_nacimiento)), 
-                                                  units="days"))/365))
+B <- 5000
+n <- nrow(datos)
 
-# Distribucion variable EDAD
-RC$data %>% ggvis(x = ~EDAD) %>% layer_histograms(width = 10)
-RC$data %>% mutate(EDAD_REAL=EDAD-4) %>% select(EDAD_REAL) %>% 
-      quantile(probs=seq(0.1, 0.9, by=0.1), na.rm=TRUE)
+boot <- matrix(sample(datos$EDAD, 
+                      size=B*n, replace=TRUE),B,n)
 
+est <- apply(boot, 1, mean)
+hist(est)
 
+library(ggplot2)
+ggplot(data.frame(media=est), aes(x=media)) +
+      geom_histogram(binwidth=0.03, aes(y=..density..)) +
+      geom_density(color="red")
 
-RC$edad <- function(cedula){
-      library(dplyr)
-      fna <- as.Date(as.character(RC$data %>% filter(id==cedula) 
-                                  %>% select(fecha_nacimiento)))
-      fac <- as.Date(Sys.time())
-      cal <- trunc(as.numeric(difftime(fac, fna, units="days"))/365)
-      if(cal < 0){
-            edad <- 0
-      } else if(cal> 100){
-            edad <- 100
-      } else {
-            edad <- cal
-      }
-      return(edad)      
-}
-
-RC$vecedad <- as.numeric(sapply(RC$data$id[6000:6100], RC$edad))
-
-bootmedia <- function(vector, iter, rpl=TRUE){
-      est <- numeric(iter)
-      for(i in 1:iter){
-            est[i] <- mean(sample(vector, replace=rpl, size=length(vector)))
-      }
-      return(mean(est))
-}
+quantile(est, probs=c(0.025,0.975))
 
 
-# IC Coeficiente de Correlación
-
-x <- sort(sample(1:500, size=300))
-y <- 2*sort(sample(1:1500, size=300))-rnorm(300, sd=300)
-plot(x,y)
-cor(x,y)
 
 
-x1 <- sort(sample(x, size=length(x), replace=TRUE))
-y1 <- sort(sample(y, size=length(y), replace=TRUE))
-plot(x1,y1)
-cor(x1,y1)
+
+
