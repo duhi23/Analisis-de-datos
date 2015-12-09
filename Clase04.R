@@ -33,4 +33,3 @@ RC$data <- tbl_df(RC$data)
 RC$data <- RC$data %>% mutate(id=ifelse(nchar(identificacion)==9, 
                           paste("0", identificacion, sep=""), 
                           as.character(identificacion)))
-
