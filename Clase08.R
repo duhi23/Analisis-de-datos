@@ -8,13 +8,22 @@ datos <- read_sav("base_modelos.sav")
 glimpse(datos)
 
 # Función de cortes - 5 dias
-cortes_5 <- function(vector){
+cortes_5_inf <- function(vector){
       cortes <- c(-1,0,5,10,15,30,60,90,2000)
       etiquetas <- c("Sin vencido", "1-5 dias", "6-10 dias",
                      "11-15 dias", "16-30 dias", "31-60 dias",
                      "61-90 dias", "Mas de 90 días")
       resul <- cut(vector, breaks=cortes, labels = etiquetas)
-      return(resul)
+      return(as.integer(resul))
+}
+
+cortes_5_sup <- function(vector){
+      cortes <- c(-1,0,5,10,15,30,60,90,120, 2000)
+      etiquetas <- c("Sin vencido", "1-5 dias", "6-10 dias",
+                     "11-15 dias", "16-30 dias", "31-60 dias",
+                     "61-90 dias", "De 91 a 120 días", "Mas de 120 días")
+      resul <- cut(vector, breaks=cortes, labels = etiquetas)
+      return(as.integer(resul))
 }
 
 # Función de cortes - 10 dias
@@ -62,3 +71,9 @@ for(i in 1:11){
       cat("Tabla ", dias[i], " vs ", dias[i+1])
       print(table(cortes_5(datos[[dias[i]]]), cortes_5(datos[[dias[i+1]]])))
 }
+
+
+# Roll Rate
+
+avanza <- 1*(cortes_5_inf(datos[["DIAS_VEN_N1"]]) < cortes_5_sup(datos[["DIAS_VEN_N2"]]))
+table(cortes_5_inf(datos[["DIAS_VEN_N1"]]), avanza)
