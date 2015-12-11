@@ -74,6 +74,9 @@ for(i in 1:11){
 
 
 # Roll Rate
-
 avanza <- 1*(cortes_5_inf(datos[["DIAS_VEN_N1"]]) < cortes_5_sup(datos[["DIAS_VEN_N2"]]))
 table(cortes_5_inf(datos[["DIAS_VEN_N1"]]), avanza)
+
+
+avanza <- 1*(cortes_5_inf(datos[["DIAS_VEN_N11"]]) < cortes_5_sup(datos[["DIAS_VEN_N12"]]))
+table(cortes_5_inf(datos[["DIAS_VEN_N11"]]), avanza)
