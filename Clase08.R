@@ -17,7 +17,16 @@ cortes_5 <- function(vector){
       return(resul)
 }
 
-help(cut)
+# Función de cortes - 10 dias
+cortes_10 <- function(vector){
+      cortes <- c(-1,0,10,20,30,60,90,120,2000)
+      etiquetas <- c("Sin vencido", "1-10 dias", "11-20 dias",
+                     "21-30 dias", "31-60 dias", "61-90 dias",
+                     "91-120 dias", "Mas de 120 días")
+      resul <- cut(vector, breaks=cortes, labels = etiquetas)
+      return(resul)
+}
+
 
 table(cortes_5(datos[["DIAS_VEN_N1"]]))
 barplot(table(cortes_5(datos[["DIAS_VEN_N1"]])))
