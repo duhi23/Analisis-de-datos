@@ -64,12 +64,12 @@ for(i in 1:12){
 }
 
 
-table(cortes_5(datos[["DIAS_VEN_N1"]]), cortes_5(datos[["DIAS_VEN_N2"]]))
+table(cortes_5_inf(datos[["DIAS_VEN_N1"]]), cortes_5_sup(datos[["DIAS_VEN_N2"]]))
 
 # Matriz de transición
 for(i in 1:11){
       cat("Tabla ", dias[i], " vs ", dias[i+1])
-      print(table(cortes_5(datos[[dias[i]]]), cortes_5(datos[[dias[i+1]]])))
+      print(table(cortes_5_inf(datos[[dias[i]]]), cortes_5_sup(datos[[dias[i+1]]])))
 }
 
 
@@ -84,3 +84,11 @@ table(cortes_5_inf(datos[["DIAS_VEN_N11"]]), avanza)
 # 0% - 40% ZONA VERDE
 # 40% - 60% ZONA GRIS
 # 60% - 100% ZONA ROJA
+
+
+# Variable dependiente
+
+datos$MAX_N1_N12 <- apply(datos[,grep("DIAS_VEN", colnames(datos))], 1, max)
+
+datos$GB_15 <- ifelse(datos$MAX_N1_N12 <=15, 0, ifelse(datos$MAX_N1_N12>30, 1, 2))
+table(datos$GB_15)
