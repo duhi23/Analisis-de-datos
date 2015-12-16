@@ -19,3 +19,28 @@ RR <- function(tabla){
 }
 
 RR(table(cortes_5_inf(datos[["DIAS_VEN_N1"]]), avanza))
+
+
+# Visualización KS
+
+var <- datos[["SCORE"]]
+GB <- as.integer(datos[["GB_15"]])
+
+bivar <- data.frame(GB,var)
+# Score mayor a 0
+bivar <- subset(bivar, bivar$var>0)
+# Prueba sobre B/M
+bivar <- subset(bivar, bivar$GB<=1)
+dim(bivar)
+
+# Funcion acumulada / Buenos
+Fn_B <- ecdf(bivar[bivar[,1]==0,][,2])
+# Funcion acumulada / Malos
+Fn_M <- ecdf(bivar[bivar[,1]==1,][,2])
+
+# Curva de buenos
+plot(Fn_B,do.points = FALSE,verticals=T,col='green',main='KS Test')
+# Curva de malos
+lines(Fn_M,lty=3,do.points = FALSE, verticals=T,col='red')
+# Valor KS
+ks.test(bivar[bivar[,1]==0,][,2],bivar[bivar[,1]==1,][,2], alternative = c("two.sided"))
