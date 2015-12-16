@@ -80,3 +80,7 @@ table(cortes_5_inf(datos[["DIAS_VEN_N1"]]), avanza)
 
 avanza <- 1*(cortes_5_inf(datos[["DIAS_VEN_N11"]]) < cortes_5_sup(datos[["DIAS_VEN_N12"]]))
 table(cortes_5_inf(datos[["DIAS_VEN_N11"]]), avanza)
+
+# 0% - 40% ZONA VERDE
+# 40% - 60% ZONA GRIS
+# 60% - 100% ZONA ROJA
