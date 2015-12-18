@@ -40,3 +40,38 @@ KS <- KS[order(KS[,2],decreasing = TRUE),]
 ## Base final
 View(KS)
 write.table(KS, file="TEST KS.csv", dec=".")
+
+
+# Regresión Logistica
+
+table(datos$GB_60)
+data_train <- subset(datos, datos$GB_60 <=1)
+
+modelo <- glm(GB_60 ~ d24m_2a6_SICOM + d24_1a6_sfr, 
+              family=binomial(link='logit'), data=data_train)
+
+summary(modelo)
+
+# Predicciones
+
+newdata <- data_train %>% select(d24m_2a6_SICOM, d24_1a6_sfr)
+prob <- predict(modelo, newdata, type="response")
+
+# Punto de corte
+BM <-ifelse(prob<=0.5,0,1)
+table(data_train$GB_60, BM)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
