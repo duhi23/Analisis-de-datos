@@ -57,21 +57,18 @@ summary(modelo)
 newdata <- data_train %>% select(d24m_2a6_SICOM, d24_1a6_sfr)
 prob <- predict(modelo, newdata, type="response")
 
-# Punto de corte
+# Punto de corte 0.5
 BM <-ifelse(prob<=0.5,0,1)
-table(data_train$GB_60, BM)
+MC <- table(data_train$GB_60, BM)
 
+# Error de prediccion 0.5
+(MC[1,2]+MC[2,1])/sum(MC)
 
+# Punto de corte 0.4
+BM <-ifelse(prob<=0.4,0,1)
+MC <- table(data_train$GB_60, BM)
 
-
-
-
-
-
-
-
-
-
-
+# Error de prediccion
+(MC[1,2]+MC[2,1])/sum(MC)
 
 
