@@ -47,14 +47,19 @@ write.table(KS, file="TEST KS.csv", dec=".")
 table(datos$GB_60)
 data_train <- subset(datos, datos$GB_60 <=1)
 
+# Modelo 1
 modelo <- glm(GB_60 ~ d24m_2a6_SICOM + d24_1a6_sfr, 
+              family=binomial(link='logit'), data=data_train)
+
+# Modelo 2
+modelo <- glm(GB_60 ~ d24m_2a6_SICOM + VENCIMIENTOS_ULT_3M + prbm_estadocivil, 
               family=binomial(link='logit'), data=data_train)
 
 summary(modelo)
 
 # Predicciones
 
-newdata <- data_train %>% select(d24m_2a6_SICOM, d24_1a6_sfr)
+newdata <- data_train %>% select(d24m_2a6_SICOM, VENCIMIENTOS_ULT_3M, prbm_estadocivil)
 prob <- predict(modelo, newdata, type="response")
 
 # Punto de corte 0.5
