@@ -65,10 +65,10 @@ MC <- table(data_train$GB_60, BM)
 (MC[1,2]+MC[2,1])/sum(MC)
 
 # Punto de corte 0.4
-BM <-ifelse(prob<=0.4,0,1)
-MC <- table(data_train$GB_60, BM)
+BM1 <-ifelse(prob<=0.4,0,1)
+MC1 <- table(data_train$GB_60, BM1)
 
 # Error de prediccion
-(MC[1,2]+MC[2,1])/sum(MC)
+(MC1[1,2]+MC1[2,1])/sum(MC1)
 
 
