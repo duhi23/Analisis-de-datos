@@ -24,7 +24,7 @@ RR(table(cortes_5_inf(datos[["DIAS_VEN_N1"]]), avanza))
 # Visualización KS
 
 var <- datos[["SCORE"]]
-GB <- as.integer(datos[["GB_15"]])
+GB <- as.integer(datos[["GB_60"]])
 
 bivar <- data.frame(GB,var)
 # Score mayor a 0
