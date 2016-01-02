@@ -37,12 +37,7 @@ data_eval <- data_eval %>% mutate(DECIL = decil)
 
 datafin <- data_eval %>% select(GB_60, prob, DECIL)
 
+# Valores tabla performance
 by(datafin$GB_60, datafin$DECIL, table)
-
-
-
-
-
-
 
 
