@@ -18,3 +18,7 @@ subdata$CLUSTER <- CLUSTER$cluster
 round((CLUSTER$size/sum(CLUSTER$size))*100,digits=2)
 
 plot(subdata[c("NIVEL_RIESGO","INGRESOESTIMADO")], col=subdata$CLUSTER)
+
+persp(subdata$NIVEL_RIESGO, subdata$INGRESOESTIMADO, subdata$CLUSTER)
+
+
