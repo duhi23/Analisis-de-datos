@@ -60,13 +60,15 @@ summary(modelo)
 # Predicciones
 
 newdata <- data_train %>% select(d24m_2a6_SICOM, VENCIMIENTOS_ULT_3M, prbm_estadocivil)
-prob <- predict(modelo, newdata, type="response")
+xreg <- predict(modelo, newdata, type="response")
+prob <- 1/(1+exp(-xreg))
+summary(prob)
 
-# Punto de corte 0.5
-BM <-ifelse(prob<=0.5,0,1)
+# Punto de corte 0.6
+BM <-ifelse(prob<=0.6,0,1)
 MC <- table(data_train$GB_60, BM)
-
-# Error de prediccion 0.5
+MC
+# Error de prediccion 0.6
 (MC[1,2]+MC[2,1])/sum(MC)
 
 # Punto de corte 0.4
