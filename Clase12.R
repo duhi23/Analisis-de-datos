@@ -4,21 +4,35 @@
 
 library(haven)
 library(dplyr)
-datos <- read_sav("trabajo_modelos.sav")
+datos <- read_sav("segmentacion.sav")
 glimpse(datos)
+dim(datos)
 
-subdata <- datos %>% select(DIGITO, NIVEL_RIESGO, INGRESOESTIMADO, TARJETAS_CREDITO)
-
+summary(datos$IngresoEstimadoV2)
+summary(datos$SCORE_V2)
+datos <- datos %>% mutate(LN_INGRESOS=15*log(IngresoEstimadoV2),
+                          SQRT_SCORE=sqrt(SCORE_V2))
+subdata <- datos %>% select(EDAD, LN_INGRESOS, SQRT_SCORE)
 
 # K medias
-CLUSTER <- kmeans(subdata,3,iter.max=20)
-str(CLUSTER)
-subdata$CLUSTER <- CLUSTER$cluster
+seg <- kmeans(subdata,2,iter.max=20)
+str(seg)
+subdata$CLUSTER <- seg$cluster
+head(subdata)
 
-round((CLUSTER$size/sum(CLUSTER$size))*100,digits=2)
+round((seg$size/sum(seg$size))*100,digits=2)
 
-plot(subdata[c("NIVEL_RIESGO","INGRESOESTIMADO")], col=subdata$CLUSTER)
+plot(subdata[c("EDAD","LN_INGRESOS")], col=subdata$CLUSTER)
+var(subdata$EDAD)
+var(subdata$LN_INGRESOS)
+
+plot(subdata[c("EDAD","SCORE_V2")], col=subdata$CLUSTER)
+var(subdata$EDAD)
+var(subdata$SQRT_SCORE)
 
 persp(subdata$NIVEL_RIESGO, subdata$INGRESOESTIMADO, subdata$CLUSTER)
 
 
+
+# Nubes dinámicas
+kmeans(datos,9,iter.max=60,algorithm="MacQueen")
