@@ -2,6 +2,7 @@
 #######     Examen Bimestral     #######
 ########################################
 
+##########     PREGUNTA 1      ##########
 
 library(dplyr)
 library(haven)
@@ -67,8 +68,35 @@ data$MAX_N1_N12 <- apply(data[,grep("DIAS_VEN", colnames(data))], 1, max)
 data$GB  <- ifelse(___________) # Completar
 
 
+##########     PREGUNTA 2      ##########
+
+# Se recomienda hacer uso de SPSS para generar los árboles
 
 
+##########     PREGUNTA 3      ##########
+
+# Regresión Logistica
+
+data_train <- subset(data, data$GB_XXX <=1)  # Completar
+
+# Modelo
+modelo <- glm(GB_60 ~ XXXXXXXX + XXXXXXXXX, 
+              family=binomial(link='logit'), data=data_train)     # Completar
+
+summary(modelo)
 
 
+# Predicciones
 
+newdata <- data_train %>% select(XXXXXXXXX, XXXXXXXXXX, XXXXXXX)  # Completar
+xreg <- predict(modelo, newdata, type="response")
+prob <- 1/(1+exp(-xreg))
+summary(prob)
+
+
+# Punto de corte 0.6
+BM <-ifelse(prob<=0.6,0,1)
+MC <- table(data_train$GB_XX, BM)  # Completar
+MC
+# Error de prediccion 0.6
+(MC[1,2]+MC[2,1])/sum(MC)
