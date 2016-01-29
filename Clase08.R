@@ -33,22 +33,32 @@ cortes_10 <- function(vector){
                      "21-30 dias", "31-60 dias", "61-90 dias",
                      "91-120 dias", "Mas de 120 días")
       resul <- cut(vector, breaks=cortes, labels = etiquetas)
-      return(resul)
+      return(as.integer(resul))
 }
 
 # Función de cortes - 15 dias
-cortes_15 <- function(vector){
-      cortes <- c(-1,0,15,30,60,90,120,150,2000)
+cortes_15_inf <- function(vector){
+      cortes <- c(-1,0,15,30,45,60,90,120,150,2000)
       etiquetas <- c("Sin vencido", "1-15 dias", "16-30 dias",
-                     "31-60 dias", "61-90 dias", "91-120 dias",
+                     "31-45 dias", "46-60 dias", "61-90 dias", "91-120 dias",
                      "121-150 dias", "Mas de 150 días")
       resul <- cut(vector, breaks=cortes, labels = etiquetas)
-      return(resul)
+      return(as.integer(resul))
+}
+
+cortes_15_sup <- function(vector){
+      cortes <- c(-1,0,15,30,45,60,90,120,150,180,2000)
+      etiquetas <- c("Sin vencido", "1-15 dias", "16-30 dias",
+                     "31-45 dias", "46-60 dias", "61-90 dias", "91-120 dias",
+                     "121-150 dias", "151-180 dias", "Mas de 180 días")
+      resul <- cut(vector, breaks=cortes, labels = etiquetas)
+      return(as.integer(resul))
 }
 
 
-table(cortes_5(datos[["DIAS_VEN_N1"]]))
-barplot(table(cortes_5(datos[["DIAS_VEN_N1"]])))
+
+table(cortes_5_inf(data[["DIAS_VEN_N11"]]))
+barplot(table(cortes_5_inf(data[["DIAS_VEN_N11"]])))
 
 datos[["SALDO_N1"]] < 42
 datos[["DIAS_VEN_N1"]]
